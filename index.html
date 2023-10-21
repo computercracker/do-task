@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task add to list</title>
+<style>
+    *{
+        text-decoration: none;
+        box-sizing: border-box;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    body{
+    /* display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center; */
+    background-color: #ddd;
+}
+
+    .main{
+        /* text-align: center; */
+        width: 50%;
+        margin: 2em auto;
+        padding: 10px;
+        
+    }
+
+    textarea,input{
+        width: 100%;
+        margin: 5px 0;
+    }
+    input{
+        padding: 10px 5px;
+    }
+
+.firstview{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+p{
+    /* margin: 0 20%; */
+}
+.containerviewer{
+    
+}
+.addlist form {
+    padding: 5px 0;
+}
+h1{
+    text-align: center;
+}
+button{
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+    background-color: brown;
+    border: 0;
+    border-radius: 5px;
+}
+input[type="submit"]{
+    background-color: dodgerblue;
+    border: 0;
+    color: white;
+    border-radius: 5px;
+}
+textarea{
+    resize: none;
+}
+</style>
+
+</head>
+<body>
+    <div class="main">
+    <div class="task">
+        <h1>TASK MANAGEMENT</h1>
+    </div>
+
+    <div class="addlist">
+        <form id="form">
+          <input type="text" required name="add" placeholder="Enter a  task title"><br>
+           <textarea name="" required id="" cols="20" rows="5"> </textarea><br>
+           <input type="submit" name="submit" value="ADD">
+        </form>
+    </div>
+
+    <div class="viewtask">
+        <h1>MY TASKS</h1>
+    </div>
+
+
+    <div class="containerviewer">
+       
+
+       
+
+    </div> 
+
+</div>
+
+<script>
+
+let Task=[]
+
+const form  = document.querySelector("#form")
+const input = document.querySelector("#form input[type='text']"),
+textarea = document.querySelector("#form textarea"),
+containerviewer = document.querySelector(".containerviewer")
+
+form.addEventListener("submit",function(e){
+    e.preventDefault()
+    let  newTask ={
+        title :input.value,
+        body:textarea.value
+    }  
+     
+
+    const isTaskExist = Task.find((data)=>data.title === newTask.title)
+      if(isTaskExist){
+        console.log("taskexist")
+      }
+      else{
+          Task = [...Task,newTask]
+          Display(Task)
+
+
+          input.value=""
+          textarea.value=""
+      }
+
+
+})
+
+
+
+function Display(data){
+    containerviewer.innerHTML ="";
+
+    data.forEach((task,index )=> {
+        containerviewer.innerHTML += `
+            <div class="firstview">
+                <div class="text">
+                    <h2>${task.title}</h2>
+                    <p>${task.body}</p>
+                </div>
+                <button onclick='Remove(${index})'>Remove</button>
+            </div>
+        `
+    });
+}
+
+
+function Remove(ind){
+
+    Task = Task.filter((data,index)=> index != ind)
+    Display(Task)
+    
+}
+
+
+
+    // function display(age=19){
+    // //     return age;
+    // // }
+    // // let x=display(100);
+    // // console.log(x);
+
+    // let x=[1,2,3];
+    // let y=[4,5,6];
+    // let xy=[...x,...y];
+    // // console.log(xy);
+
+    // function rest(...d){//rest operator
+
+    //     // let sum = 0
+        // for (let index = 0; index < d.length; index++) {
+        //     sum = sum + d[index]
+            
+        // }
+        // console.log(sum)
+
+    //   let x = d.filter(function (item){
+    //     return item % 2 !== 0;
+    //   }).reduce(function(acc,curr){
+    //     return acc+curr;
+    //   })
+      
+
+    //     console.log(x)
+
+        
+    // }
+
+// rest(10,2,3,4,5,6);
+
+
+
+// function arry(){
+//     return [3,4,100]
+// }
+
+// let dest = arry();
+
+// let d=dest[0]
+//   d2 = dest[1]
+//   d3 = dest[2]
+
+//   let [d,d2,d3] = arry();
+
+// console.log(d)
+
+
+// const ob = {name:'x',age:4,grade:[1,2,3,4],gender:"Male"}
+
+//overwriting property name
+// let {name:names,age:u} = ob;
+// console.log(names,u)
+
+//rest opper
+// let {name,age,grade,...args} = ob;
+// console.log(args)
+
+// const bo = {name:'x',age:4,grade:[1,2,3,4],gender:"Male",bio:'aboutme'}
+// let box = {name:'x',age:4,grade:[1,2,3,4],gender:"Female",...bo}
+// console.log(box)
+
+// let student = [
+//     {name:'A',age:14,marks:30,attendence:{math:80,netw:70,bio:30}},
+//     {name:'B',age:24,marks:50,attendence:{math:90,netw:80,bio:45}},
+//     {name:'C',age:19,marks:60,attendence:{math:50,netw:75,bio:90}},
+//     {name:'D',age:10,marks:50,attendence:{math:60,netw:79,bio:100}},
+//     {name:'E',age:13,marks:30,attendence:{math:100,netw:100,bio:45}},
+
+// ]
+
+
+// console.log(student.reverse())
+
+// student.map((data)=>{
+//     let {name,age,marks,attendence}=data
+//     console.log(attendence)
+// })
+
+
+
+
+const date=new date(2023-20-12);
+
+console.log(date);
+
+
+
+</script>
+
+</body>
+</html>

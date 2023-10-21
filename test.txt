@@ -1,0 +1,3 @@
+ Checking git how it work
+Hello check
+Welcome
